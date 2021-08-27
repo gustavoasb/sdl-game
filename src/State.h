@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "Sprite.h"
+#include "Music.h"
 using namespace std;
 
 class State{
@@ -15,7 +16,7 @@ class State{
     void Render();
   private:
     Sprite bg;
-    // Music music;
+    Music music;
     bool quitRequested;
 };
 
