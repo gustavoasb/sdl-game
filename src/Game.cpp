@@ -5,11 +5,11 @@
 #include <iostream>
 
 Game& Game::GetInstance(){
-  if(this->instance != nullptr){
-    return *this->instance;
+  if(Game::instance != nullptr){
+    return *Game::instance;
   }
-  new Game("titulo", 500, 500);
-  return *this->instance;
+  new Game(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
+  return *Game::instance;
 }
 
 Game::Game(string title, int width, int height){
