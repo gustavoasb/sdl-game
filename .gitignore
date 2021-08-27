@@ -1,0 +1,9 @@
+# Binary files
+build/
+.vscode/
+*.exe
+*.out
+
+test_cmake/
+
+*.zip
