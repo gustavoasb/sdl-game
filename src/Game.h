@@ -8,6 +8,10 @@
 #include <SDL2/SDL.h>
 using namespace std;
 
+#define GAME_NAME "Gustavo Barros 180064487"
+#define GAME_WIDTH 1024
+#define GAME_HEIGHT 600
+
 class Game{
   public:
     ~Game();
