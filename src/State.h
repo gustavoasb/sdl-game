@@ -1,5 +1,6 @@
 #include <string>
 #include <SDL2/SDL.h>
+#include "Sprite.h"
 using namespace std;
 
 class State{
@@ -10,7 +11,7 @@ class State{
     void Update(float dt);
     void Render();
   private:
-    // Sprite bg;
+    Sprite bg;
     // Music music;
     bool quitRequested;
 };
