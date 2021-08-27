@@ -1,3 +1,6 @@
+#ifndef _STATE_H
+#define _STATE_H
+
 #include <string>
 #include <SDL2/SDL.h>
 #include "Sprite.h"
@@ -15,3 +18,5 @@ class State{
     // Music music;
     bool quitRequested;
 };
+
+#endif
