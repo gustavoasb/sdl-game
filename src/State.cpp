@@ -1,7 +1,4 @@
-#define INCLUDE_SDL_IMAGE
-#define INCLUDE_SDL_MIXER
 #include "State.h"
-#include "SDL_include.h"
 
 State::State(){
   this->QuitRequested();
