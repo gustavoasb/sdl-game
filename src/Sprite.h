@@ -1,5 +1,10 @@
+#ifndef _SPRITE_H
+#define _SPRITE_H
+
 #include <string>
 #include <SDL2/SDL.h>
+#define INCLUDE_SDL_IMAGE
+#include "SDL_include.h"
 using namespace std;
 
 class Sprite{
@@ -19,3 +24,5 @@ class Sprite{
     int height;
     SDL_Rect clipRect;
 };
+
+#endif
