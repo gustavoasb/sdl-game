@@ -86,5 +86,11 @@ SDL_Renderer* Game::GetRenderer(){
 }
 
 void Game::Run(){
-  
+  float dt = 0.0;
+  while(this->state->QuitRequested()){
+    this->state->Update(dt);
+    this->state->Render();
+    SDL_RenderPresent(this->renderer);
+    SDL_Delay(33);
+  }
 }
