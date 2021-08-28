@@ -5,11 +5,11 @@ CC = g++
 SRC_DIR = src
 BUILD_DIR = build
 
-TARGET = MySDLProgram
+TARGET = game
 
 # Source files
 # SRCS := $(wildcard $(SRC_DIR)/*.cpp)
-SRCS = $(SRC_DIR)/main.cpp
+SRCS = $(SRC_DIR)/*.cpp
 
 BIN = $(BUILD_DIR)/$(TARGET)
 
