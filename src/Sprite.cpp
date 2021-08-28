@@ -1,7 +1,6 @@
 #include "Sprite.h"
+#include "Game.h"
 #include <iostream>
-#define INCLUDE_SDL_IMAGE
-#include "SDL_include.h"
 
 Sprite::Sprite(){
   this->texture = nullptr;
@@ -22,12 +21,14 @@ void Sprite::Open(string file){
   if(this->texture != nullptr){
     SDL_DestroyTexture(this->texture);
   }
-  if(IMG_LoadTexture(renderer, file.c_str()) == nullptr){
-    cout << "Falha ao iniciar janela" << endl;
+  this->texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+  if(this->texture == nullptr){
+    cout << "Falha ao iniciar textura de sprint" << endl;
     cout << SDL_GetError() << endl;
     exit(1);
   };
   SDL_QueryTexture(this->texture, nullptr, nullptr, &this->width, &this->height);
+  SetClip(0, 0, this->width, this->height);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h){
@@ -43,7 +44,7 @@ void Sprite::Render(int x, int y){
   dstrect.y = y;
   dstrect.w = this->clipRect.w;
   dstrect.h = this->clipRect.h;
-  SDL_RenderCopy(renderer, this->texture, this->clipRect, );
+  SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &dstrect);
 }
 
 int Sprite::GetWidth(){
