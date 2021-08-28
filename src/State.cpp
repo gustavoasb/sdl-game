@@ -1,8 +1,11 @@
 #include "State.h"
+#include <iostream>
 
 State::State(){
-  this->QuitRequested();
-  
+  this->quitRequested = false;
+  this->bg = *new Sprite("assets/img/ocean.jpg");
+  this->music = *new Music("assets/audio/stageState.ogg");
+  music.Play();
   // Instancia Sprite 
 }
 
@@ -18,6 +21,7 @@ void State::Update(float dt){
 
 void State::Render(){
   //chamar render do fundo
+  this->bg.Render(0, 0);
 }
 
 bool State::QuitRequested(){
