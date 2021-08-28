@@ -9,19 +9,22 @@ Music::Music(string file){
   Open(file);
 }
 
-void Music::Play(int times = -1){
+void Music::Play(int times){
   if(this->music != nullptr){
     Mix_PlayMusic(this->music, times);
   }
 }
 
-void Music::Stop(int msToStop = 1500){
+void Music::Stop(int msToStop){
   Mix_FadeOutMusic(msToStop);
 }
 
 void Music::Open(string file){
-  if(this->music != nullptr){
-    Mix_LoadMUS(file.c_str());
+  this->music = Mix_LoadMUS(file.c_str());
+  if(this->music == nullptr){
+    cout << "Falha ao iniciar musica" << endl;
+    cout << SDL_GetError() << endl;
+    exit(1);
   }
 }
 
