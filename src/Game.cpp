@@ -1,24 +1,25 @@
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
 #include "Game.h"
+Game* Game::instance = nullptr;
 #include "SDL_include.h"
 #include <iostream>
 
 Game& Game::GetInstance(){
-  if(Game::instance != nullptr){
-    return *Game::instance;
+  if(instance != nullptr){
+    return *instance;
   }
   new Game(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
-  return *Game::instance;
+  return *instance;
 }
 
 Game::Game(string title, int width, int height){
-  if(this->instance != nullptr){
-    cout << "?" << endl;
+  if(instance != nullptr){
+    cout << "Instance nao eh nullptr" << endl;
     return;
   }
 
-  this->instance = this;
+  instance = this;
 
   // Inicia SDL
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)){
@@ -45,7 +46,7 @@ Game::Game(string title, int width, int height){
     cout << SDL_GetError() << endl;
     exit(1);
   }
-  if(Mix_AllocateChannels(32)){
+  if(!(Mix_AllocateChannels(32))){
     cout << "Falha ao alocar canais necessarios" << endl;
     cout << SDL_GetError() << endl;
     exit(1);
@@ -53,7 +54,7 @@ Game::Game(string title, int width, int height){
 
   // Cria janela
   this->window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
-  if(this->window != nullptr){
+  if(this->window == nullptr){
     cout << "Falha ao iniciar janela" << endl;
     cout << SDL_GetError() << endl;
     exit(1);
@@ -61,11 +62,14 @@ Game::Game(string title, int width, int height){
 
   // Cria Renderer
   this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
-  if(this->renderer != nullptr){
+  if(this->renderer == nullptr){
     cout << "Falha ao iniciar renderer" << endl;
     cout << SDL_GetError() << endl;
     exit(1);
   }
+
+  this->state = new State();
+
 }
 
 Game::~Game(){
@@ -86,8 +90,8 @@ SDL_Renderer* Game::GetRenderer(){
 }
 
 void Game::Run(){
-  float dt = 0.0;
-  while(this->state->QuitRequested()){
+  float dt;
+  while(!(this->state->QuitRequested())){
     this->state->Update(dt);
     this->state->Render();
     SDL_RenderPresent(this->renderer);
