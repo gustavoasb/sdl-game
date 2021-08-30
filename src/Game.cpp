@@ -6,20 +6,20 @@ Game* Game::instance = nullptr;
 #include <iostream>
 
 Game& Game::GetInstance(){
-  if(instance != nullptr){
-    return *instance;
+  if(Game::instance != nullptr){
+    return *Game::instance;
   }
   new Game(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
-  return *instance;
+  return *Game::instance;
 }
 
 Game::Game(string title, int width, int height){
-  if(instance != nullptr){
+  if(Game::instance != nullptr){
     cout << "Instance nao eh nullptr" << endl;
     return;
   }
 
-  instance = this;
+  Game::instance = this;
 
   // Inicia SDL
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)){

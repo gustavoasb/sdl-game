@@ -8,7 +8,7 @@ Sprite::Sprite(){
 
 Sprite::Sprite(string file){
   this->texture = nullptr;
-  Open(file);
+  this->Open(file);
 }
 
 Sprite::~Sprite(){
@@ -28,7 +28,7 @@ void Sprite::Open(string file){
     exit(1);
   };
   SDL_QueryTexture(this->texture, nullptr, nullptr, &this->width, &this->height);
-  SetClip(0, 0, this->width, this->height);
+  this->SetClip(0, 0, this->width, this->height);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h){
