@@ -6,6 +6,7 @@ State::State(){
   this->bg = *new Sprite("assets/img/ocean.jpg");
   this->music = *new Music("assets/audio/stageState.ogg");
   music.Play();
+  this->LoadAssets();
   // Instancia Sprite 
 }
 
