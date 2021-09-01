@@ -1,9 +1,7 @@
 # Binary files
 build/
 .vscode/
+bin/
+dep/
 *.exe
 *.out
-
-test_cmake/
-
-*.zip
