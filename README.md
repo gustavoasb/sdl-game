@@ -1,12 +1,14 @@
 # Unnamed Game
 
-## Projeto em C++ usando SDL
+**Projeto em C++ usando SDL**
+
+Gustavo Barros 18/0064487
 
 Tópicos Avançados em Computadores, Turma JE. Professora Carla Castanho.
 
-**Trabalho 1 – Game Loop, Sprite e Music**
+## Trabalho 1 – Game Loop, Sprite e Music
 
-Esse trabalho consiste no começo da implementação da engine que vai rodar o jogo. A arquitetura montada pode ser visualizada na imagem:
+A primeira parte da matéria consiste na implementação inicial da engine que vai rodar o jogo. A arquitetura montada pode ser visualizada na imagem:
 
 ![Arquitetura](docs/arquitetura.png)
 
