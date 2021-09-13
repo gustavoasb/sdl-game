@@ -5,11 +5,14 @@
 #include <SDL2/SDL.h>
 #include "Sprite.h"
 #include "Music.h"
+#include <vector>
+#include <memory>
 using namespace std;
 
 class State{
   public:
     State();
+    ~State();
     bool QuitRequested();
     void LoadAssets();
     void Update(float dt);
@@ -18,6 +21,9 @@ class State{
     Sprite bg;
     Music music;
     bool quitRequested;
+    void Input();
+    void AddObject(int mouseX, int mouseY);
+    vector<unique_ptr<GameObject>> objectArray;
 };
 
 #endif
