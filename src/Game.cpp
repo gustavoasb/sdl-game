@@ -4,6 +4,8 @@
 Game* Game::instance = nullptr;
 #include "SDL_include.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 Game& Game::GetInstance(){
   if(Game::instance != nullptr){
@@ -70,6 +72,9 @@ Game::Game(string title, int width, int height){
 
   this->state = new State();
 
+  //Seed
+  srand(time(NULL));
+
 }
 
 Game::~Game(){
@@ -90,9 +95,8 @@ SDL_Renderer* Game::GetRenderer(){
 }
 
 void Game::Run(){
-  float dt;
   while(!(this->state->QuitRequested())){
-    this->state->Update(dt);
+    this->state->Update(1.0);
     this->state->Render();
     SDL_RenderPresent(this->renderer);
     SDL_Delay(33);
