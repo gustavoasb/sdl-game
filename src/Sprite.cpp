@@ -43,7 +43,6 @@ void Sprite::Render(){
   SDL_Rect dstrect;
   dstrect.x = this->associated.box.x;
   dstrect.y = this->associated.box.y;
-  // dstrect.y = ;
   dstrect.w = this->clipRect.w;
   dstrect.h = this->clipRect.h;
   SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &dstrect);
