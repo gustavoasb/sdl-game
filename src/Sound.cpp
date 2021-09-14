@@ -18,7 +18,9 @@ void Sound::Play(int times){
 }
 
 void Sound::Stop(){
-  Mix_HaltChannel(this->channel); 
+  if(this->chunk != nullptr){
+    Mix_HaltChannel(this->channel); 
+  }
 }
 
 void Sound::Open(string file){
