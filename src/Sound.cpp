@@ -34,8 +34,10 @@ void Sound::Open(string file){
 }
 
 Sound::~Sound(){
-  this->Stop();
-  Mix_FreeChunk(this->chunk);
+  if(this->chunk != nullptr){
+    this->Stop();
+    Mix_FreeChunk(this->chunk);
+  }
 }
 
 void Sound::Update(float dt){}
