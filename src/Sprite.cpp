@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Game.h"
 #include "GameObject.h"
+#include "Resources.h"
 #include <iostream>
 
 Sprite::Sprite(GameObject& associated) : Component(associated){
@@ -13,21 +14,15 @@ Sprite::Sprite(GameObject& associated, string file) : Component(associated){
 }
 
 Sprite::~Sprite(){
-  if(this->texture != nullptr){
-    SDL_DestroyTexture(this->texture);
-  }
+  this->texture = nullptr;
 }
 
 void Sprite::Open(string file){
   if(this->texture != nullptr){
-    SDL_DestroyTexture(this->texture);
+    texture = Resources::GetImage(file);
   }
-  this->texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
-  if(this->texture == nullptr){
-    cout << "Falha ao iniciar textura de sprint" << endl;
-    cout << SDL_GetError() << endl;
-    exit(1);
-  };
+  this->texture = Resources::GetImage(file);
+
   SDL_QueryTexture(this->texture, nullptr, nullptr, &this->width, &this->height);
   this->SetClip(0, 0, this->width, this->height);
 }
@@ -39,13 +34,17 @@ void Sprite::SetClip(int x, int y, int w, int h){
   this->clipRect.h = h;
 }
 
-void Sprite::Render(){
+void Sprite::Render(float x, float y){
   SDL_Rect dstrect;
-  dstrect.x = this->associated.box.x;
-  dstrect.y = this->associated.box.y;
+  dstrect.x = x;
+  dstrect.y = y;
   dstrect.w = this->clipRect.w;
   dstrect.h = this->clipRect.h;
   SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &dstrect);
+}
+
+void Sprite::Render(){
+   Render(this->associated.box.x, this->associated.box.y);
 }
 
 int Sprite::GetWidth(){

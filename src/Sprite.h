@@ -19,6 +19,7 @@ class Sprite : public Component{
     int GetHeight();
     bool IsOpen();
     void Update(float dt);
+    void Render(float x, float y);
     void Render();
     bool Is(string type);
   private:

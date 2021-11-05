@@ -1,14 +1,15 @@
 #include "State.h"
 #include "Vec2.h"
 #include "Face.h"
+#include "TileSet.h"
+#include "TileMap.h"
 #include "Sound.h"
 #include <iostream>
 # define PI 3.14159265358979323846
 
-State::State() : bg(*new GameObject(), "assets/img/ocean.jpg"){
+State::State(){
   this->quitRequested = false;
   this->LoadAssets();
-  
   this->music.Play();
 }
 
@@ -17,14 +18,17 @@ State::~State(){
 }
 
 void State::LoadAssets(){
+	this->music = *new Music("assets/audio/stageState.ogg");
+
   GameObject* object = new GameObject();
-  object->AddComponent(&this->bg);
-  object->box.x = 0;
-  object->box.y = 0;
-  object->box.w = this->bg.GetWidth();
-  object->box.h = this->bg.GetHeight();
+	this->bg = new Sprite(*object, "assets/img/ocean.jpg");
+  object->AddComponent(this->bg);
   this->objectArray.emplace_back(object);
-  this->music = *new Music("assets/audio/stageState.ogg");
+
+	GameObject* map = new GameObject();
+	TileMap* tileMap = new TileMap(*map,"assets/map/tileMap.txt",new TileSet(64, 64, "assets/img/tileset.png"));
+  map->AddComponent(tileMap);
+  this->objectArray.emplace_back(map);
 }
 
 void State::Update(float dt){

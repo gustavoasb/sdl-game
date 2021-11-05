@@ -18,7 +18,7 @@ class State{
     void Update(float dt);
     void Render();
   private:
-    Sprite bg;
+    Sprite* bg;
     Music music;
     bool quitRequested;
     void Input();
