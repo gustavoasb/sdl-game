@@ -1,6 +1,8 @@
 #ifndef _STATE_H
 #define _STATE_H
 
+#include "InputManager.h"
+
 #include <string>
 #include <SDL2/SDL.h>
 #include "Sprite.h"
@@ -21,7 +23,6 @@ class State{
     Sprite* bg;
     Music music;
     bool quitRequested;
-    void Input();
     void AddObject(int mouseX, int mouseY);
     vector<unique_ptr<GameObject>> objectArray;
 };

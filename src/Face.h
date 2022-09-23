@@ -3,6 +3,9 @@
 
 #include <string>
 #include "GameObject.h"
+#include "InputManager.h"
+#include <iostream>
+#define LEFT_MOUSE_BUTTON SDL_BUTTON_LEFT
 using namespace std;
 
 class Face : public Component{

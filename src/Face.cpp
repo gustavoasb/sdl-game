@@ -22,7 +22,15 @@ void Face::Damage(int damage){
     }
   }
 }
-void Face::Update(float dt){}
+void Face::Update(float dt){
+  InputManager &input = InputManager::GetInstance();
+  if(input.MousePress(SDL_BUTTON_LEFT)){
+    std::cout << "cliquei";
+		if(associated.box.Contains({(float)input.GetMouseX(), (float)input.GetMouseY()})){
+			this->Damage(std::rand() % 10 + 10);
+		}
+	}
+}
 
 void Face::Render(){}
 

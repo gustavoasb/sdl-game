@@ -96,6 +96,7 @@ SDL_Renderer* Game::GetRenderer(){
 
 void Game::Run(){
   while(!(this->state->QuitRequested())){
+    InputManager::GetInstance().Update();
     this->state->Update(1.0);
     this->state->Render();
     SDL_RenderPresent(this->renderer);
