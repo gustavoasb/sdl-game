@@ -4,13 +4,13 @@
 
 Gustavo Barros 18/0064487
 
-Tópicos Avançados em Computadores, Turma JE. Professora Carla Castanho.
+Introdução ao desenvolvimento de jogos. Professora Carla Castanho.
 
-## Trabalho 1 – Game Loop, Sprite e Music
+Bugs Encontrados:
 
-A primeira parte da matéria consiste na implementação inicial da engine que vai rodar o jogo. A arquitetura montada pode ser visualizada na imagem:
+- Disparos não são precisos
 
-![Arquitetura](docs/arquitetura.png)
+- Implementar a escala fez com que no início da execução alguns minions fiquem travados
 
 Para compilar dê `make` no terminal.
 
