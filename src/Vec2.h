@@ -12,6 +12,8 @@ class Vec2{
     friend Vec2 operator * (Vec2 const &, float const &);
     float length();
     float GetAngle();
+    float distance(Vec2 v);
+
 };
 
 #endif

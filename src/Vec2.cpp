@@ -20,17 +20,17 @@ Vec2 Vec2::GetRotated(float angle){
 
 Vec2 operator + (Vec2 const &c1, Vec2 const &c2)
 {
-     return Vec2(c1.x + c2.x, c1.y + c2.y);
+  return Vec2(c1.x + c2.x, c1.y + c2.y);
 }
 
 Vec2 operator - (Vec2 const &c1, Vec2 const &c2)
 {
-     return Vec2(c1.x - c2.x, c1.y - c2.y);
+  return Vec2(c1.x - c2.x, c1.y - c2.y);
 }
 
 Vec2 operator * (Vec2 const &c1, float const &n)
 {
-     return Vec2(c1.x * n, c1.y * n);
+  return Vec2(c1.x * n, c1.y * n);
 }
 
 float Vec2::length() { 
@@ -39,4 +39,8 @@ float Vec2::length() {
 
 float Vec2::GetAngle(){ 
   return atan2(this->y, this->x); 
+}
+
+float Vec2::distance(Vec2 v) {
+  return (this->x - v.x) * (this->x - v.x) + (this->y - v.y) * (this->y - v.y);
 }

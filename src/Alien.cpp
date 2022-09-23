@@ -45,6 +45,16 @@ void Alien::Update(float dt){
         break;
       }
       case Action::SHOOT: {
+        auto minion = minionArray[0].lock();
+        for (unsigned int i = 1; i < minionArray.size(); i++) {
+          auto minion2 = minionArray[i].lock();
+          if (Vec2(minion2->box.x, minion2->box.y).distance(action.pos) < Vec2(minion->box.x, minion->box.y).distance(action.pos)){
+            minion = minion2;
+          }
+        }
+        if(minion) {
+          static_cast<Minion *>(minion->GetComponent("Minion"))->Shoot(action.pos);
+        }
         taskQueue.pop();
         break;
       }
