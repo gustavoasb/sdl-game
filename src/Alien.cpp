@@ -2,7 +2,11 @@
 #include "Sprite.h"
 #include "InputManager.h"
 #include "Camera.h"
+#include "Minion.h"
 #include <iostream>
+#define PI 3.14159265358979323846
+#include "State.h"
+#include "Game.h"
 
 Alien::Alien(GameObject& associated, int nMinions) : Component(associated){
   Sprite *sprite = new Sprite(associated, "./assets/img/alien.png");
@@ -60,7 +64,19 @@ bool Alien::Is(string type){
   return false;
 }
 
-void Alien::Start(){}
+void Alien::Start(){
+  for (size_t i = 0; i < minionArray.size(); i++) {
+    State &state = Game::GetInstance().GetState();
+    auto alien = state.GetObjectPtr(&associated);
+    float arcOffsetDeg = i * PI * 2 / minionArray.size();
+
+    GameObject *obj = new GameObject();
+    Minion *minion = new Minion(*obj, alien, arcOffsetDeg);
+    obj->AddComponent(minion);
+
+    minionArray[i] = state.AddObject(obj);
+  }
+}
 
 Alien::Action::Action(Action::ActionType type, float x, float y) {
   this->type = type;

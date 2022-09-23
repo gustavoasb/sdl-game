@@ -34,15 +34,15 @@ void Minion::Update(float dt) {
 }
 
 void Minion::Shoot(Vec2 target) {
-  GameObject *bullet = new GameObject();
+  // GameObject *bullet = new GameObject();
 
-  float angle = (target - Vec2(associated.box.x + associated.box.w / 2, associated.box.y + associated.box.h / 2)).GetAngle();
+  // float angle = (target - Vec2(associated.box.x + associated.box.w / 2, associated.box.y + associated.box.h / 2)).GetAngle();
 
-  bullet->AddComponent(new Bullet(*bullet, angle, 500, 1, 1000, "./assets/img/minionbullet1.png"));
-  bullet->box.x = this->associated.box.x - bullet->box.w / 2;
-  bullet->box.y = this->associated.box.y - bullet->box.h / 2;
+  // bullet->AddComponent(new Bullet(*bullet, angle, 500, 1, 1000, "./assets/img/minionbullet1.png"));
+  // bullet->box.x = this->associated.box.x - bullet->box.w / 2;
+  // bullet->box.y = this->associated.box.y - bullet->box.h / 2;
 
-  Game::GetInstance().GetState().AddObject(bullet);
+  // Game::GetInstance().GetState().AddObject(bullet);
 }
 
 void Minion::Render(){}
