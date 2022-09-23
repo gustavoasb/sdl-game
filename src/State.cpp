@@ -4,6 +4,7 @@
 #include "TileSet.h"
 #include "TileMap.h"
 #include "Sound.h"
+#include "Camera.h"
 #include <iostream>
 # define PI 3.14159265358979323846
 
@@ -43,6 +44,8 @@ void State::Update(float dt){
                   Vec2(input.GetMouseX(), input.GetMouseY());
     AddObject((int)objPos.x, (int)objPos.y);
   }
+
+  Camera::Update(dt);
 
   for(vector<int>::size_type i = 0; i < this->objectArray.size(); i++){
     this->objectArray[i]->Update(dt);

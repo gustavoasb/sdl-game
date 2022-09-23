@@ -1,4 +1,5 @@
 #include "TileMap.h"
+#include "Camera.h"
 #include <fstream>
 #include <iostream>
 
@@ -40,7 +41,7 @@ int& TileMap::At(int x, int y, int z){
 void TileMap::Render(){
   // i = layer
   for (int i = 0; i < mapDepth; i++){
-    RenderLayer(i, 0, 0);
+    RenderLayer(i, (int)Camera::pos.x*(i+1), (int)Camera::pos.y*(i+1));
   }
 }
 

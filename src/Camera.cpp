@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "InputManager.h"
+#include <iostream>
 
 Vec2 Camera::pos = Vec2(0, 0);
 Vec2 Camera::speed = Vec2(250, 250);
@@ -14,9 +15,8 @@ void Camera::Unfollow(){
 }
 
 void Camera::Update(float dt){
-  if(Camera::focus != nullptr){
+  if(Camera::focus == nullptr){
     InputManager &input = InputManager::GetInstance();
-
     if(input.IsKeyDown(UP_ARROW_KEY)) {
       Camera::pos.y -= speed.y * dt;
     }
