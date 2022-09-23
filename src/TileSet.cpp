@@ -4,6 +4,7 @@
 
 TileSet::TileSet(int tileWidth, int tileHeight, string file) : tileSet(*new GameObject()){
   tileSet.Open(file);
+  tileSet.SetScale(Vec2(1.0,1.0));
   this->tileWidth = tileWidth;
   this->tileHeight = tileHeight;
   this->rows = tileSet.GetHeight() / tileHeight;

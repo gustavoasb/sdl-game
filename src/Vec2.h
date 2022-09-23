@@ -4,8 +4,9 @@
 class Vec2{
   public:
     Vec2();
-    Vec2(int x, int y);
-    float x, y;
+    Vec2(float x, float y);
+    float x;
+    float y;
     Vec2 GetRotated(float angle);
     friend Vec2 operator + (Vec2 const &, Vec2 const &);
     friend Vec2 operator - (Vec2 const &, Vec2 const &);

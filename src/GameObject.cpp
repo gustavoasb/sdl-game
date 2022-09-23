@@ -7,7 +7,7 @@ using namespace std;
 GameObject::GameObject(){
   this->started = false;
   this->isDead = false;
-  this->angleDeg = 0;
+  this->angleDeg = 0.0;
 }
 
 // Corrigir

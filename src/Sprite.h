@@ -24,14 +24,14 @@ class Sprite : public Component{
     void Render();
     bool Is(string type);
     void Start();
-    // void SetScale(Vec2 scale);
-    // Vec2 GetScale();
+    void SetScale(Vec2 scale);
+    Vec2 GetScale();
   private:
     SDL_Texture* texture;
     int width;
     int height;
     SDL_Rect clipRect;
-    // Vec2 scale;
+    Vec2 scale;
 };
 
 #endif

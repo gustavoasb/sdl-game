@@ -2,8 +2,8 @@
 #include "InputManager.h"
 #include <iostream>
 
-Vec2 Camera::pos = Vec2(0, 0);
-Vec2 Camera::speed = Vec2(250, 250);
+Vec2 Camera::pos = Vec2(0.0, 0.0);
+Vec2 Camera::speed = Vec2(250.0, 250.0);
 GameObject *Camera::focus = nullptr;
 
 void Camera::Follow(GameObject* newFocus){
