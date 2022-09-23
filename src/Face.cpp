@@ -4,6 +4,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include "Camera.h"
 using namespace std;
 
 Face::Face(GameObject& associated) : Component(associated){
@@ -25,7 +26,7 @@ void Face::Damage(int damage){
 void Face::Update(float dt){
   InputManager &input = InputManager::GetInstance();
   if(input.MousePress(SDL_BUTTON_LEFT)){
-		if(associated.box.Contains({(float)input.GetMouseX(), (float)input.GetMouseY()})){
+		if(associated.box.Contains((float)(input.GetMouseX() + Camera::pos.x), (float)(input.GetMouseY() + Camera::pos.y))){
 			this->Damage(std::rand() % 10 + 10);
 		}
 	}

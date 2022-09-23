@@ -7,7 +7,7 @@ class Rect{
   public:
     Rect();
     float x, y, w, h;
-    bool Contains(std::initializer_list<float> mouse);
+    bool Contains(float x, float y);
 };
 
 #endif

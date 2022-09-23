@@ -8,6 +8,9 @@ Rect::Rect(){
   this->h = 0;
 }
 
-bool Rect::Contains(initializer_list<float> mouse){
-  return true;
+bool Rect::Contains(float x, float y){
+  if(x >= this->x && x <= this->x + this->w && y >= this->y && y <= this->y + this->h){
+    return true;
+  } 
+  return false;
 }
