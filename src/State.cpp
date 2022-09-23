@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include "Sound.h"
 #include "Camera.h"
+#include "CameraFollower.h"
 #include <iostream>
 # define PI 3.14159265358979323846
 
@@ -22,8 +23,11 @@ void State::LoadAssets(){
 	this->music = *new Music("assets/audio/stageState.ogg");
 
   GameObject* object = new GameObject();
+
 	this->bg = new Sprite(*object, "assets/img/ocean.jpg");
   object->AddComponent(this->bg);
+  CameraFollower *cam = new CameraFollower(*object);
+  object->AddComponent(cam);
   this->objectArray.emplace_back(object);
 
 	GameObject* map = new GameObject();
