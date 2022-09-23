@@ -5,12 +5,33 @@
 #include "Sound.h"
 #include "Camera.h"
 #include "CameraFollower.h"
+#include "Alien.h"
 #include <iostream>
-# define PI 3.14159265358979323846
+#define PI 3.14159265358979323846
 
 State::State(){
   this->started = false;
   this->quitRequested = false;
+
+  GameObject* object = new GameObject();
+
+	this->bg = new Sprite(*object, "assets/img/ocean.jpg");
+  object->AddComponent(this->bg);
+
+	TileMap* tileMap = new TileMap(*object,"assets/map/tileMap.txt",new TileSet(64, 64, "assets/img/tileset.png"));
+  object->AddComponent(tileMap);
+  this->objectArray.emplace_back(object);
+
+  CameraFollower *cam = new CameraFollower(*object);
+  object->AddComponent(cam);
+  this->objectArray.emplace_back(object);
+
+  GameObject* obj = new GameObject();
+  obj->box.x = 512 + Camera::pos.x;
+  obj->box.y = 300 + Camera::pos.x;
+  Alien* alien = new Alien(*obj, 3);
+  obj->AddComponent(alien);
+  objectArray.emplace_back(obj);
 }
 
 State::~State(){
@@ -27,19 +48,6 @@ void State::Start(){
 
 void State::LoadAssets(){
 	this->music = *new Music("assets/audio/stageState.ogg");
-
-  GameObject* object = new GameObject();
-
-	this->bg = new Sprite(*object, "assets/img/ocean.jpg");
-  object->AddComponent(this->bg);
-  CameraFollower *cam = new CameraFollower(*object);
-  object->AddComponent(cam);
-  this->objectArray.emplace_back(object);
-
-	GameObject* map = new GameObject();
-	TileMap* tileMap = new TileMap(*map,"assets/map/tileMap.txt",new TileSet(64, 64, "assets/img/tileset.png"));
-  map->AddComponent(tileMap);
-  this->objectArray.emplace_back(map);
 
   this->music.Play();
 }

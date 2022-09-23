@@ -72,10 +72,8 @@ bool TileMap::Is(string type)
   return "TileMap" == type;
 }
 
-TileMap::~TileMap(){
-  
-}
+TileMap::~TileMap(){}
 
-void TileMap::Update(float dt){
+void TileMap::Update(float dt){}
 
-}
+void TileMap::Start(){}

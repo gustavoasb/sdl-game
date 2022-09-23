@@ -1,11 +1,13 @@
 #include "GameObject.h"
 #include "Component.h"
 #include <memory>
+#include <iostream>
 using namespace std;
 
 GameObject::GameObject(){
   this->started = false;
   this->isDead = false;
+  this->angleDeg = 0;
 }
 
 // Corrigir
@@ -34,7 +36,7 @@ void GameObject::RequestDelete(){
 }
 
 void GameObject::AddComponent(Component* cpt){
-  if(started) {
+  if(this->started) {
     cpt->Start();
   }
   components.emplace_back(cpt);
@@ -58,8 +60,8 @@ Component* GameObject::GetComponent(string type){
 }
 
 void GameObject::Start(){
-  for(size_t i = 0; i < components.size(); i++){
-    // components[i]->Start();
+  for(size_t i = 0; i < this->components.size(); i++){
+    components[i]->Start();
   }
   this->started = true;
 }

@@ -23,6 +23,7 @@ void Sprite::Open(string file){
     texture = Resources::GetImage(file);
   }
   this->texture = Resources::GetImage(file);
+  std::cout << file;
 
   SDL_QueryTexture(this->texture, nullptr, nullptr, &this->width, &this->height);
   this->SetClip(0, 0, this->width, this->height);
@@ -39,6 +40,8 @@ void Sprite::Render(float x, float y){
   SDL_Rect dstrect;
   dstrect.x = x;
   dstrect.y = y;
+  // dstrect.w = this->clipRect.w * scale.x;
+  // dstrect.h = this->clipRect.h * scale.y;
   dstrect.w = this->clipRect.w;
   dstrect.h = this->clipRect.h;
   SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &dstrect);
@@ -49,11 +52,13 @@ void Sprite::Render(){
 }
 
 int Sprite::GetWidth(){
+  // return this->width * scale.x;
   return this->width;
 }
 
 int Sprite::GetHeight(){
   return this->height;
+  // return this->height * scale.y;
 }
 
 bool Sprite::IsOpen(){
@@ -71,3 +76,13 @@ bool Sprite::Is(string type){
   }
   return false;
 }
+
+void Sprite::Start(){}
+
+// void Sprite::SetScale(Vec2 scale){ 
+//   this->scale = scale; 
+// }
+
+// Vec2 Sprite::GetScale(){ 
+//   return scale; 
+// }

@@ -8,6 +8,10 @@ class Vec2{
     float x, y;
     Vec2 GetRotated(float angle);
     friend Vec2 operator + (Vec2 const &, Vec2 const &);
+    friend Vec2 operator - (Vec2 const &, Vec2 const &);
+    friend Vec2 operator * (Vec2 const &, float const &);
+    float length();
+    float GetAngle();
 };
 
 #endif

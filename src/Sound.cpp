@@ -50,3 +50,5 @@ bool Sound::Is(string type){
   }
   return false;
 }
+
+void Sound::Start(){}

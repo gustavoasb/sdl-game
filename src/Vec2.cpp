@@ -22,3 +22,21 @@ Vec2 operator + (Vec2 const &c1, Vec2 const &c2)
 {
      return Vec2(c1.x + c2.x, c1.y + c2.y);
 }
+
+Vec2 operator - (Vec2 const &c1, Vec2 const &c2)
+{
+     return Vec2(c1.x - c2.x, c1.y - c2.y);
+}
+
+Vec2 operator * (Vec2 const &c1, float const &n)
+{
+     return Vec2(c1.x * n, c1.y * n);
+}
+
+float Vec2::length() { 
+  return sqrt(this->x * this->x + this->y * this->y); 
+}
+
+float Vec2::GetAngle(){ 
+  return atan2(this->y, this->x); 
+}
