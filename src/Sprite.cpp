@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Resources.h"
+#include "Camera.h"
 #include <iostream>
 
 Sprite::Sprite(GameObject& associated) : Component(associated){
@@ -44,7 +45,7 @@ void Sprite::Render(float x, float y){
 }
 
 void Sprite::Render(){
-   Render(this->associated.box.x, this->associated.box.y);
+   Render(this->associated.box.x - Camera::pos.x, this->associated.box.y - Camera::pos.y);
 }
 
 int Sprite::GetWidth(){

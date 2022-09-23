@@ -42,7 +42,7 @@ void State::Update(float dt){
   if(input.KeyPress(SDLK_SPACE)) {
     Vec2 objPos = Vec2(200, 0).GetRotated(-PI + PI * (rand() % 1001) / 500.0) +
                   Vec2(input.GetMouseX(), input.GetMouseY());
-    AddObject((int)objPos.x, (int)objPos.y);
+    this->AddObject((int)objPos.x, (int)objPos.y);
   }
 
   Camera::Update(dt);
@@ -69,13 +69,13 @@ void State::AddObject(int mouseX, int mouseY){
   GameObject* object = new GameObject();
   Sprite* enemy = new Sprite(*object, "assets/img/penguinface.png");
   object->AddComponent(enemy);
-  object->box.x = mouseX;
-  object->box.y = mouseY;
+  object->box.x = mouseX - Camera::pos.x;
+  object->box.y = mouseY - Camera::pos.y;
   object->box.w = enemy->GetWidth();
   object->box.h = enemy->GetHeight();
   Sound* sound = new Sound(*object, "assets/audio/boom.wav");
   object->AddComponent(sound);
-  this->objectArray.emplace_back(object);
   Face* face = new Face(*object);
   object->AddComponent(face);
+  this->objectArray.emplace_back(object);
 }
