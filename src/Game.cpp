@@ -75,6 +75,9 @@ Game::Game(string title, int width, int height){
   //Seed
   srand(time(NULL));
 
+  // Inicializa dt e frameStart
+  this->dt = 0;
+  this->frameStart = 0;
 }
 
 Game::~Game(){
@@ -96,10 +99,22 @@ SDL_Renderer* Game::GetRenderer(){
 
 void Game::Run(){
   while(!(this->state->QuitRequested())){
+    this->CalculateDeltaTime();
     InputManager::GetInstance().Update();
-    this->state->Update(1.0);
+    this->state->Update(this->GetDeltaTime());
     this->state->Render();
     SDL_RenderPresent(this->renderer);
     SDL_Delay(33);
   }
+}
+
+void Game::CalculateDeltaTime(){
+   int frameTime = SDL_GetTicks();
+
+  this->dt = (frameTime - this->frameStart) / (float)1000;
+  this->frameStart = frameTime;
+}
+
+float Game::GetDeltaTime(){
+  return this->dt;
 }
