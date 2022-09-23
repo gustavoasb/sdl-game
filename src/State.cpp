@@ -1,6 +1,5 @@
 #include "State.h"
 #include "Vec2.h"
-#include "Face.h"
 #include "TileSet.h"
 #include "TileMap.h"
 #include "Sound.h"
@@ -10,13 +9,20 @@
 # define PI 3.14159265358979323846
 
 State::State(){
+  this->started = false;
   this->quitRequested = false;
-  this->LoadAssets();
-  this->music.Play();
 }
 
 State::~State(){
   this->objectArray.clear();
+}
+
+void State::Start(){
+  this->LoadAssets();
+  for(vector<int>::size_type i = 0; i < objectArray.size(); i++){
+    objectArray[i]->Start();
+  }
+  this->started = true;
 }
 
 void State::LoadAssets(){
@@ -34,6 +40,8 @@ void State::LoadAssets(){
 	TileMap* tileMap = new TileMap(*map,"assets/map/tileMap.txt",new TileSet(64, 64, "assets/img/tileset.png"));
   map->AddComponent(tileMap);
   this->objectArray.emplace_back(map);
+
+  this->music.Play();
 }
 
 void State::Update(float dt){
@@ -41,12 +49,6 @@ void State::Update(float dt){
 
 	if(input.KeyPress(ESCAPE_KEY) || input.QuitRequested()){
     quitRequested = true;
-  }
-
-  if(input.KeyPress(SDLK_SPACE)) {
-    Vec2 objPos = Vec2(200, 0).GetRotated(-PI + PI * (rand() % 1001) / 500.0) +
-                  Vec2(input.GetMouseX(), input.GetMouseY());
-    this->AddObject((int)objPos.x, (int)objPos.y);
   }
 
   Camera::Update(dt);
@@ -69,17 +71,20 @@ bool State::QuitRequested(){
   return this->quitRequested;
 }
 
-void State::AddObject(int mouseX, int mouseY){
-  GameObject* object = new GameObject();
-  Sprite* enemy = new Sprite(*object, "assets/img/penguinface.png");
-  object->AddComponent(enemy);
-  object->box.x = mouseX - Camera::pos.x;
-  object->box.y = mouseY - Camera::pos.y;
-  object->box.w = enemy->GetWidth();
-  object->box.h = enemy->GetHeight();
-  Sound* sound = new Sound(*object, "assets/audio/boom.wav");
-  object->AddComponent(sound);
-  Face* face = new Face(*object);
-  object->AddComponent(face);
-  this->objectArray.emplace_back(object);
+weak_ptr<GameObject> State::AddObject(GameObject* go){
+  shared_ptr<GameObject> object = shared_ptr<GameObject>(go);
+  objectArray.push_back(object);
+  if(this->started){
+    object->Start();
+  }
+  return weak_ptr<GameObject>(object);
+}
+
+weak_ptr<GameObject> State::GetObjectPtr(GameObject* go){
+  for(vector<int>::size_type i = 0; i < objectArray.size(); i++){
+    if(objectArray[i].get() == go){
+      return weak_ptr<GameObject>(objectArray[i]);
+    }
+  }
+  return weak_ptr<GameObject>();
 }

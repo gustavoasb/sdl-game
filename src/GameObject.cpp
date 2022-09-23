@@ -4,6 +4,7 @@
 using namespace std;
 
 GameObject::GameObject(){
+  this->started = false;
   this->isDead = false;
 }
 
@@ -33,7 +34,10 @@ void GameObject::RequestDelete(){
 }
 
 void GameObject::AddComponent(Component* cpt){
-  this->components.emplace_back(cpt);
+  if(started) {
+    cpt->Start();
+  }
+  components.emplace_back(cpt);
 }
 
 void GameObject::RemoveComponent(Component* cpt){
@@ -51,4 +55,11 @@ Component* GameObject::GetComponent(string type){
     }
   }
   return nullptr;
+}
+
+void GameObject::Start(){
+  for(size_t i = 0; i < components.size(); i++){
+    // components[i]->Start();
+  }
+  this->started = true;
 }

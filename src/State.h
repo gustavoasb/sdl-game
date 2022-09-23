@@ -19,12 +19,15 @@ class State{
     void LoadAssets();
     void Update(float dt);
     void Render();
+    void Start();
+    weak_ptr<GameObject> AddObject(GameObject* go);
+    weak_ptr<GameObject> GetObjectPtr(GameObject* go);
   private:
+    bool started;
     Sprite* bg;
     Music music;
     bool quitRequested;
-    void AddObject(int mouseX, int mouseY);
-    vector<unique_ptr<GameObject>> objectArray;
+    vector<shared_ptr<GameObject>> objectArray;
 };
 
 #endif

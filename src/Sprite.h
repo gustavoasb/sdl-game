@@ -22,6 +22,7 @@ class Sprite : public Component{
     void Render(float x, float y);
     void Render();
     bool Is(string type);
+    void Start();
   private:
     SDL_Texture* texture;
     int width;
