@@ -9,26 +9,34 @@
 #include "Game.h"
 #include "Collider.h"
 #include "Bullet.h"
+#include "PenguinBody.h"
+#define REST_TIME 0.8f
+
+int Alien::alienCount = 0;
 
 Alien::Alien(GameObject& associated, int nMinions) : Component(associated){
   Sprite *sprite = new Sprite(associated, "./assets/img/alien.png");
   associated.AddComponent(sprite);
   Collider *col = new Collider(associated);
   associated.AddComponent(col);
-  this->speed = Vec2(1.5, 1.5);
+  this->speed = Vec2(0.1, 0.1);
   this->hp = 50;
   taskQueue = std::queue<Action>();
   minionArray = std::vector<std::weak_ptr<GameObject>>(nMinions);
+  alienCount++;
+  state = RESTING;
 }
 
 Alien::~Alien(){
+  alienCount--;
   this->minionArray.clear();
 }
 
 void Alien::Update(float dt){
   associated.angleDeg += dt * 60 * -1;
 
-  if (!hp) {
+  //checa se morreu
+  if (!hp){
     associated.RequestDelete();
 
     GameObject *go = new GameObject();
@@ -39,15 +47,32 @@ void Alien::Update(float dt){
     Game::GetInstance().GetState().AddObject(go);
   }
 
-  InputManager& input = InputManager::GetInstance();
-
-  if(input.MousePress(SDL_BUTTON_LEFT)){
-    this->taskQueue.push(Action(Action::SHOOT,input.GetMouseX() + Camera::pos.x,input.GetMouseY() + Camera::pos.y));
+  //controla estados
+  if(state == RESTING){
+    if(restTimer.Get() > REST_TIME){
+      state = MOVING;
+      restTimer.Restart();
+      destination = PenguinBody::player->GetCenter();
+    }
+    restTimer.Update(dt);
   }
-  if(input.MousePress(SDL_BUTTON_RIGHT)){
-    this->taskQueue.push(Action(Action::MOVE,input.GetMouseX() + Camera::pos.x,input.GetMouseY() + Camera::pos.y));
+
+  if(state == MOVING){
+    Vec2 pos = Vec2(associated.box.x, associated.box.y);
+    Vec2 pPos = PenguinBody::player->GetCenter();
+    float diff = PenguinBody::player->GetCenter().distanceSquared(pos);
+    cout << diff << endl;
+    if(diff < 400){
+      this->taskQueue.push(Action(Action::SHOOT,pPos.x, pPos.y));
+      state = RESTING;
+    } else{
+      float angle = (pPos - associated.box.GetCenter()).GetAngle();
+      Vec2 dest = pos + this->speed.GetRotated(angle);
+      this->taskQueue.push(Action(Action::MOVE,destination.x,destination.y));
+    }
   }
 
+  //executa tarefas
   if(!taskQueue.empty()){
     Action action = this->taskQueue.front();
     switch(action.type){

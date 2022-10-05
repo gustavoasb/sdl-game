@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Vec2.h"
 #include "GameObject.h"
+#include "Timer.h"
 #include <queue>
 
 class Alien : public Component{
@@ -15,6 +16,8 @@ class Alien : public Component{
     bool Is(string type);
     void Start();
     void NotifyCollision(GameObject &other);
+    static int alienCount;
+
   private:
   
     class Action{
@@ -27,10 +30,18 @@ class Alien : public Component{
         Vec2 pos;
     };
 
+    enum AlienState {
+      MOVING,
+      RESTING,
+    };
+
     Vec2 speed;
     int hp;
     std::queue<Action> taskQueue;
     std::vector<std::weak_ptr<GameObject>> minionArray;
+    AlienState state;
+    Timer restTimer;
+    Vec2 destination;
 };
 
 #endif

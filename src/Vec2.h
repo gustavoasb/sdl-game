@@ -14,6 +14,7 @@ class Vec2{
     float length();
     float GetAngle();
     float distance(Vec2 v);
+    float distanceSquared(Vec2 v);
 
 };
 

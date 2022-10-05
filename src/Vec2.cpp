@@ -44,3 +44,7 @@ float Vec2::GetAngle(){
 float Vec2::distance(Vec2 v) {
   return (this->x - v.x) * (this->x - v.x) + (this->y - v.y) * (this->y - v.y);
 }
+
+float Vec2::distanceSquared(Vec2 v) {
+  return sqrt((this->x - v.x) * (this->x - v.x) + (this->y - v.y) * (this->y - v.y));
+}
