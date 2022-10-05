@@ -8,6 +8,7 @@
 #include "State.h"
 #include "Game.h"
 #include "Collider.h"
+#include "Bullet.h"
 
 Alien::Alien(GameObject& associated, int nMinions) : Component(associated){
   Sprite *sprite = new Sprite(associated, "./assets/img/alien.png");
@@ -26,6 +27,17 @@ Alien::~Alien(){
 
 void Alien::Update(float dt){
   associated.angleDeg += dt * 60 * -1;
+
+  if (!hp) {
+    associated.RequestDelete();
+
+    GameObject *go = new GameObject();
+    go->box.x = associated.box.x;
+    go->box.y = associated.box.y;
+    go->AddComponent(new Sprite(*go, "assets/img/aliendeath.png", 4, 0.1, 0.35));
+
+    Game::GetInstance().GetState().AddObject(go);
+  }
 
   InputManager& input = InputManager::GetInstance();
 
@@ -96,4 +108,13 @@ void Alien::Start(){
 Alien::Action::Action(Action::ActionType type, float x, float y) {
   this->type = type;
   this->pos = Vec2(x, y);
+}
+
+void Alien::NotifyCollision(GameObject &other) {
+  if (other.GetComponent("Bullet") != nullptr) {
+    Bullet *bullet = (Bullet *)other.GetComponent("Bullet");
+    if(!bullet->targetsPlayer){
+      hp -= bullet->GetDamage();
+    }
+  }
 }

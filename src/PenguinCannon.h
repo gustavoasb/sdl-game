@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "Vec2.h"
+#include "Timer.h"
 
 #include <memory>
 
@@ -17,6 +18,7 @@ public:
 private:
   std::weak_ptr<GameObject> pbody;
   float angle;
+  Timer bulletCooldown;
 };
 
 #endif

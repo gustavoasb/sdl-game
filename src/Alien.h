@@ -14,6 +14,7 @@ class Alien : public Component{
     void Render();
     bool Is(string type);
     void Start();
+    void NotifyCollision(GameObject &other);
   private:
   
     class Action{

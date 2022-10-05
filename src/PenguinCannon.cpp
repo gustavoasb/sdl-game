@@ -27,6 +27,8 @@ void PenguinCannon::Update(float dt){
   associated.box.x = bodyPos.x - associated.box.w / 2;
   associated.box.y = bodyPos.y - associated.box.h / 2;
 
+  bulletCooldown.Update(dt);
+
   InputManager &input = InputManager::GetInstance();
 
   Vec2 mouse = Vec2(input.GetMouseX(), input.GetMouseY()) + Camera::pos;
@@ -48,9 +50,14 @@ bool PenguinCannon::Is(std::string type){
 }
 
 void PenguinCannon::Shoot(){
+  if (bulletCooldown.Get() < 0.5f) {
+    return;
+  }
+
+  bulletCooldown.Restart();
   GameObject *bullet = new GameObject();
 
-  bullet->AddComponent(new Bullet(*bullet, this->angle, 500, 5, 1000, "./assets/img/penguinbullet.png", false));
+  bullet->AddComponent(new Bullet(*bullet, this->angle, 500, 10, 500, "./assets/img/penguinbullet.png", false));
   bullet->box.x = this->associated.box.x - bullet->box.w / 2.0;
   bullet->box.y = this->associated.box.y - bullet->box.h / 2.0;
 

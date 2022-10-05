@@ -43,6 +43,14 @@ void PenguinBody::Update(float dt){
     Camera::Unfollow();
     associated.RequestDelete();
     pcannon.lock()->RequestDelete();
+
+    GameObject *go = new GameObject();
+    go->box.x = associated.box.x;
+    go->box.y = associated.box.y;
+    go->AddComponent(new Sprite(*go, "assets/img/penguindeath.png", 5, 0.1, 0.4));
+
+    Game::GetInstance().GetState().AddObject(go);
+
     return;
   }
 
