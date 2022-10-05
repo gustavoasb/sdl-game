@@ -48,7 +48,7 @@ void Alien::Update(float dt){
   }
 
   //controla estados
-  if(state == RESTING){
+  if(PenguinBody::player != nullptr && state == RESTING){
     if(restTimer.Get() > REST_TIME){
       state = MOVING;
       restTimer.Restart();
@@ -57,7 +57,7 @@ void Alien::Update(float dt){
     restTimer.Update(dt);
   }
 
-  if(state == MOVING){
+  if(PenguinBody::player != nullptr && state == MOVING){
     Vec2 pos = Vec2(associated.box.x, associated.box.y);
     Vec2 pPos = PenguinBody::player->GetCenter();
     float diff = PenguinBody::player->GetCenter().distanceSquared(pos);
