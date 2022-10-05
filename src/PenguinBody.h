@@ -17,6 +17,8 @@ public:
   Vec2 GetCenter();
 
   static PenguinBody* player;
+
+  void NotifyCollision(GameObject &other);
 private:
   std::weak_ptr<GameObject> pcannon;
   Vec2 speed;

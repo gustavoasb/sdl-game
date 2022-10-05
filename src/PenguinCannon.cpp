@@ -50,7 +50,7 @@ bool PenguinCannon::Is(std::string type){
 void PenguinCannon::Shoot(){
   GameObject *bullet = new GameObject();
 
-  bullet->AddComponent(new Bullet(*bullet, this->angle, 500, 5, 1000, "./assets/img/penguinbullet.png"));
+  bullet->AddComponent(new Bullet(*bullet, this->angle, 500, 5, 1000, "./assets/img/penguinbullet.png", false));
   bullet->box.x = this->associated.box.x - bullet->box.w / 2.0;
   bullet->box.y = this->associated.box.y - bullet->box.h / 2.0;
 

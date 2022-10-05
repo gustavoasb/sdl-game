@@ -79,3 +79,12 @@ bool PenguinBody::Is(std::string type){
 Vec2 PenguinBody::GetCenter(){ 
   return associated.box.GetCenter(); 
 }
+
+void PenguinBody::NotifyCollision(GameObject &other) {
+  if (other.GetComponent("Bullet") != nullptr) {
+    Bullet *bullet = (Bullet *)other.GetComponent("Bullet");
+    if (bullet->targetsPlayer) {
+      hp -= bullet->GetDamage();
+    }
+  }
+}

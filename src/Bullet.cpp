@@ -5,7 +5,9 @@
 #define PI 3.14159265358979323846
 
 Bullet::Bullet(GameObject &associated, float angle, float speed, int damage,
-  float maxDistance, std::string sprite) : Component(associated) {
+  float maxDistance, std::string sprite, bool targetsPlayer) : Component(associated) {
+    
+  this->targetsPlayer = targetsPlayer;
   this->damage = damage;
   this->distanceLeft = maxDistance;
   this->speed = Vec2(speed, (float)0).GetRotated(angle);

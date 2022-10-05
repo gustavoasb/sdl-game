@@ -81,9 +81,8 @@ void State::Update(float dt){
         Collider* col2 = (Collider*) objectArray[j]->GetComponent("Collider");
         if(col2 != nullptr){
           if(Collision::IsColliding(col1->box, col2->box, objectArray[i]->angleDeg, objectArray[j]->angleDeg)){
-            // objectArray[i]->NotifyCollision(*objectArray[j]);
-            // objectArray[j]->NotifyCollision(*objectArray[i]);
-            // std::cout << col2->box.x << std::endl;
+            objectArray[i]->NotifyCollision(*objectArray[j]);
+            objectArray[j]->NotifyCollision(*objectArray[i]);
           }
         }
       }
