@@ -2,9 +2,7 @@
 #include "Sprite.h"
 #include "GameObject.h"
 
-TileSet::TileSet(int tileWidth, int tileHeight, string file) : tileSet(*new GameObject()){
-  tileSet.Open(file);
-  tileSet.SetScaleX(Vec2(1.0,1.0));
+TileSet::TileSet(int tileWidth, int tileHeight, string file) : tileSet(*new GameObject(), file){
   this->tileWidth = tileWidth;
   this->tileHeight = tileHeight;
   this->rows = tileSet.GetHeight() / tileHeight;

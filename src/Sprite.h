@@ -12,7 +12,7 @@ using namespace std;
 class Sprite : public Component{
   public:
     Sprite(GameObject& associated);
-    Sprite(GameObject& associated, string file);
+    Sprite(GameObject& associated, string file, int frameCount = 1, float frameTime = 1.0f);
     ~Sprite();
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
@@ -26,12 +26,19 @@ class Sprite : public Component{
     void Start();
     void SetScaleX(Vec2 scale);
     Vec2 GetScale();
+    void SetFrame(int frame);
+    void SetFrameCount(int frameCount);
+    void setFrameTime(float frameTime);
   private:
     SDL_Texture* texture;
     int width;
     int height;
     SDL_Rect clipRect;
     Vec2 scale;
+    int frameCount;
+    int currentFrame;
+    float timeElapsed;
+    float frameTime;
 };
 
 #endif
