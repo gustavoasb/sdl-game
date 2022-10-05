@@ -4,6 +4,9 @@
 #include "InputManager.h"
 #include "Bullet.h"
 #include "Game.h"
+#include "Camera.h"
+#include <iostream>
+#define PI 3.14159265358979323846
 
 PenguinCannon::PenguinCannon(GameObject &associated, std::weak_ptr<GameObject> penguinBody) : Component(associated) {
   Sprite *sprite = new Sprite(associated, "assets/img/cubngun.png");
@@ -21,6 +24,10 @@ void PenguinCannon::Update(float dt){
   associated.box.y = bodyPos.y - associated.box.h / 2;
 
   InputManager &input = InputManager::GetInstance();
+
+  Vec2 mouse = Vec2(input.GetMouseX(), input.GetMouseY()) + Camera::pos;
+  angle = (mouse - associated.box.GetCenter()).GetAngle();
+  associated.angleDeg = angle * 180 / PI;
   
   if(input.MousePress(SDL_BUTTON_LEFT)){
     this->Shoot();
