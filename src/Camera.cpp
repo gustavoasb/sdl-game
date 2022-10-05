@@ -29,5 +29,7 @@ void Camera::Update(float dt){
     if(input.IsKeyDown(RIGHT_ARROW_KEY)) {
       Camera::pos.x += speed.x * dt;
     }
+  } else{
+    Camera::pos = focus->box.GetCenter() - Vec2(512, 300);
   }
 }

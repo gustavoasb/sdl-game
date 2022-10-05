@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "CameraFollower.h"
 #include "Alien.h"
+#include "PenguinBody.h"
 #include <iostream>
 #define PI 3.14159265358979323846
 
@@ -32,6 +33,14 @@ State::State(){
   Alien* alien = new Alien(*obj, 4);
   obj->AddComponent(alien);
   objectArray.emplace_back(obj);
+
+  GameObject* pobj = new GameObject();
+  pobj->box.x = 704 + Camera::pos.x;
+  pobj->box.y = 604 + Camera::pos.x;
+  PenguinBody* penguin = new PenguinBody(*pobj);
+  pobj->AddComponent(penguin);
+  objectArray.emplace_back(pobj);
+  Camera::Follow(pobj);
 }
 
 State::~State(){
