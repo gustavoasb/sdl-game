@@ -4,6 +4,9 @@
 #include "InputManager.h"
 #include "Game.h"
 #include "Camera.h"
+#include "Bullet.h"
+#include "Collider.h"
+#include <iostream>
 #define PI 3.14159265358979323846
 
 PenguinBody *PenguinBody::player = nullptr;
@@ -12,6 +15,9 @@ PenguinBody::PenguinBody(GameObject &associated) : Component(associated){
 
   Sprite *sprite = new Sprite(associated, "./assets/img/penguin.png");
   associated.AddComponent(sprite);
+
+  Collider *col = new Collider(associated);
+  associated.AddComponent(col);
 
   PenguinBody::player = this;
 

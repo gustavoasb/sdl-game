@@ -7,6 +7,8 @@
 #include "CameraFollower.h"
 #include "Alien.h"
 #include "PenguinBody.h"
+#include "Collision.h"
+#include "Collider.h"
 #include <iostream>
 #define PI 3.14159265358979323846
 
@@ -72,6 +74,21 @@ void State::Update(float dt){
 
   for(vector<int>::size_type i = 0; i < this->objectArray.size(); i++){
     this->objectArray[i]->Update(dt);
+
+    Collider* col1 = (Collider*) objectArray[i]->GetComponent("Collider");
+    if(col1 != nullptr){
+      for(vector<int>::size_type j = i+1; j < this->objectArray.size(); j++){
+        Collider* col2 = (Collider*) objectArray[j]->GetComponent("Collider");
+        if(col2 != nullptr){
+          if(Collision::IsColliding(col1->box, col2->box, objectArray[i]->angleDeg, objectArray[j]->angleDeg)){
+            // objectArray[i]->NotifyCollision(*objectArray[j]);
+            // objectArray[j]->NotifyCollision(*objectArray[i]);
+            // std::cout << col2->box.x << std::endl;
+          }
+        }
+      }
+    }
+    
     if(this->objectArray[i]->IsDead()){
       this->objectArray.erase(this->objectArray.begin() + i);
     }

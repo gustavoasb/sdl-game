@@ -2,6 +2,7 @@
 #define _COMPONENT_H
 
 #include <string>
+#include <iostream>
 class GameObject;
 using namespace std;
 
@@ -11,10 +12,13 @@ class Component{
   public:
     Component(GameObject& associated);
     virtual ~Component();
-    void virtual Update(float dt) = 0;
-    void virtual Render() = 0;
-    bool virtual Is(string type) = 0;
-    void virtual Start(){};
+    virtual void Update(float dt) = 0;
+    virtual void Render() = 0;
+    virtual bool Is(string type) = 0;
+    virtual void Start(){};
+    virtual void NotifyCollision(GameObject& other){
+      std::cout << "x" << std::endl;
+    };
 };
 
 #endif

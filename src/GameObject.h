@@ -26,6 +26,7 @@ class GameObject{
     void Start();
     bool started;
     double angleDeg;
+    void NotifyCollision(GameObject& other);
 };
 
 #endif

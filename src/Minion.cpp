@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include <iostream>
+#include "Collider.h"
 #define PI 3.14159265358979323846
 
 Minion::Minion(GameObject &associated, std::weak_ptr<GameObject> alienCenter, float arcOffset)
@@ -12,6 +13,9 @@ Minion::Minion(GameObject &associated, std::weak_ptr<GameObject> alienCenter, fl
 
   Sprite *sprite = new Sprite(associated, "./assets/img/minion.png");
   associated.AddComponent(sprite);
+
+  Collider *col = new Collider(associated);
+  associated.AddComponent(col);
 
   float scale = 1.0 + (1.5 - 1.0) * ((float) rand()) / (float) RAND_MAX;
   sprite->SetScaleX(Vec2(scale, scale));

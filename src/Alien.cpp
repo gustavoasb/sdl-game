@@ -7,10 +7,13 @@
 #define PI 3.14159265358979323846
 #include "State.h"
 #include "Game.h"
+#include "Collider.h"
 
 Alien::Alien(GameObject& associated, int nMinions) : Component(associated){
   Sprite *sprite = new Sprite(associated, "./assets/img/alien.png");
   associated.AddComponent(sprite);
+  Collider *col = new Collider(associated);
+  associated.AddComponent(col);
   this->speed = Vec2(1.5, 1.5);
   this->hp = 50;
   taskQueue = std::queue<Action>();

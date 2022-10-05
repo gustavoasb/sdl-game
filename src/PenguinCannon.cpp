@@ -6,11 +6,15 @@
 #include "Game.h"
 #include "Camera.h"
 #include <iostream>
+#include "Collider.h"
 #define PI 3.14159265358979323846
 
 PenguinCannon::PenguinCannon(GameObject &associated, std::weak_ptr<GameObject> penguinBody) : Component(associated) {
   Sprite *sprite = new Sprite(associated, "assets/img/cubngun.png");
   associated.AddComponent(sprite);
+
+  Collider *col = new Collider(associated);
+  associated.AddComponent(col);
 }
 
 void PenguinCannon::Update(float dt){
