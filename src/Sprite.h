@@ -24,7 +24,7 @@ class Sprite : public Component{
     void Render();
     bool Is(string type);
     void Start();
-    void SetScale(Vec2 scale);
+    void SetScaleX(Vec2 scale);
     Vec2 GetScale();
   private:
     SDL_Texture* texture;

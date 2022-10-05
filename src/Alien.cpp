@@ -22,13 +22,15 @@ Alien::~Alien(){
 }
 
 void Alien::Update(float dt){
+  associated.angleDeg += dt * 60 * -1;
+
   InputManager& input = InputManager::GetInstance();
 
   if(input.MousePress(SDL_BUTTON_LEFT)){
-    this->taskQueue.push(Action(Action::SHOOT,input.GetMouseX() - Camera::pos.x,input.GetMouseY() - Camera::pos.y));
+    this->taskQueue.push(Action(Action::SHOOT,input.GetMouseX() + Camera::pos.x,input.GetMouseY() + Camera::pos.y));
   }
   if(input.MousePress(SDL_BUTTON_RIGHT)){
-    this->taskQueue.push(Action(Action::MOVE,input.GetMouseX() - Camera::pos.x,input.GetMouseY() - Camera::pos.y));
+    this->taskQueue.push(Action(Action::MOVE,input.GetMouseX() + Camera::pos.x,input.GetMouseY() + Camera::pos.y));
   }
 
   if(!taskQueue.empty()){
@@ -78,7 +80,7 @@ void Alien::Start(){
   for (size_t i = 0; i < minionArray.size(); i++) {
     State &state = Game::GetInstance().GetState();
     auto alien = state.GetObjectPtr(&associated);
-    float arcOffsetDeg = i * PI * 2 / minionArray.size();
+    float arcOffsetDeg = i * PI * 2 / minionArray.size();;
 
     GameObject *obj = new GameObject();
     Minion *minion = new Minion(*obj, alien, arcOffsetDeg);

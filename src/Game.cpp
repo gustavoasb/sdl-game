@@ -23,6 +23,10 @@ Game::Game(string title, int width, int height){
 
   Game::instance = this;
 
+   // Inicializa dt e frameStart
+  this->dt = 0;
+  this->frameStart = 0;
+
   // Inicia SDL
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)){
     cout << "Falha ao iniciar SDL" << endl;
@@ -74,10 +78,6 @@ Game::Game(string title, int width, int height){
 
   //Seed
   srand(time(NULL));
-
-  // Inicializa dt e frameStart
-  this->dt = 0;
-  this->frameStart = 0;
 }
 
 Game::~Game(){
@@ -110,7 +110,7 @@ void Game::Run(){
 }
 
 void Game::CalculateDeltaTime(){
-   int frameTime = SDL_GetTicks();
+  int frameTime = SDL_GetTicks();
 
   this->dt = (frameTime - this->frameStart) / (float)1000;
   this->frameStart = frameTime;

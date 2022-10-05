@@ -29,7 +29,7 @@ State::State(){
   GameObject* obj = new GameObject();
   obj->box.x = 512 + Camera::pos.x;
   obj->box.y = 300 + Camera::pos.x;
-  Alien* alien = new Alien(*obj, 3);
+  Alien* alien = new Alien(*obj, 4);
   obj->AddComponent(alien);
   objectArray.emplace_back(obj);
 }

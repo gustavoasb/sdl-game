@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-GameObject::GameObject(){
+GameObject::GameObject() : box(0, 0, 0, 0){
   this->started = false;
   this->isDead = false;
   this->angleDeg = 0.0;

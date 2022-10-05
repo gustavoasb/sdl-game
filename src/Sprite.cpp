@@ -6,12 +6,12 @@
 #include <iostream>
 
 Sprite::Sprite(GameObject& associated) : Component(associated){
-  SetScale(Vec2(1.0, 1.0));
+  SetScaleX(Vec2(1.0, 1.0));
   this->texture = nullptr;
 }
 
 Sprite::Sprite(GameObject& associated, string file) : Component(associated){
-  SetScale(Vec2(1.0, 1.0));
+  SetScaleX(Vec2(1.0, 1.0));
   this->texture = nullptr;
   this->Open(file);
 }
@@ -43,9 +43,6 @@ void Sprite::Render(float x, float y){
   dstrect.y = y;
   dstrect.w = this->clipRect.w * scale.x;
   dstrect.h = this->clipRect.h * scale.y;
-  dstrect.w = this->clipRect.w;
-  dstrect.h = this->clipRect.h;
-  // SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &dstrect);
   SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), this->texture, &clipRect, &dstrect, 
     associated.angleDeg, nullptr, SDL_FLIP_NONE);
 }
@@ -81,7 +78,9 @@ bool Sprite::Is(string type){
 
 void Sprite::Start(){}
 
-void Sprite::SetScale(Vec2 scale){ 
+void Sprite::SetScaleX(Vec2 scale){ 
+  if(scale.x == 0) scale.x = this->scale.x;
+  if(scale.y == 0) scale.y = this->scale.y;
   this->scale = scale;
 }
 

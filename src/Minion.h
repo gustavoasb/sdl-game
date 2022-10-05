@@ -10,9 +10,9 @@
 class Minion : public Component {
 public:
   Minion(GameObject &associated, std::weak_ptr<GameObject>, float arcOffsetDeg);
-  void Update(float dt) override;
-  void Render() override;
-  bool Is(std::string type) override;
+  void Update(float dt);
+  void Render();
+  bool Is(std::string type);
   void Shoot(Vec2 target);
 private:
   std::weak_ptr<GameObject> alienCenter;

@@ -1,11 +1,11 @@
 #include "Rect.h"
 using namespace std;
 
-Rect::Rect(){
-  this->x = 0;
-  this->y = 0;
-  this->w = 0;
-  this->h = 0;
+Rect::Rect(float x, float y, float w, float h) {
+  this->x = x;
+  this->y = y;
+  this->w = w;
+  this->h = h;
 }
 
 bool Rect::Contains(float x, float y){
@@ -13,4 +13,8 @@ bool Rect::Contains(float x, float y){
     return true;
   } 
   return false;
+}
+
+Vec2 Rect::GetCenter(){ 
+  return Vec2(x + w / 2, y + h / 2);
 }
